@@ -20,7 +20,7 @@ ia_county_map <- read_rds("data/IA-county-map.rds")
 # Read list with rectified names of Iowa counties
 ia_counties <- read_csv("data/IA-county-names-standard.csv")
 
-data <- fread("data/TEMP.csv")
+# data <- fread("TEMP.csv")
 
 
 # UI - ABOUT -------------------------------------------------------
@@ -142,6 +142,13 @@ make_map <- function(data_plot,
     plot_subtitle <- NULL
   }
   
+  # reorient legend text according to its position
+  if (legend_position %in% c("bottom", "top")) {
+    legend_direction = "horizontal"
+  } else {
+    legend_direction = "vertical"
+  }
+  
   ia_county_map %>% 
     left_join(data_plot, by = c("fips")) %>%
     mutate(county_name = 
@@ -150,7 +157,7 @@ make_map <- function(data_plot,
     geom_sf(aes(fill = value), size = 0.2) +
     geom_sf(data = ia_state_map, fill = NA, size = 0.8, color = "black") +
     geom_text(aes(long, lat, label = county_name),  color = "black",
-              family = "asap_cond", lineheight = .4, size = 5) +
+              family = "asap_cond", lineheight = .4, size = 3) +
     labs(title = plot_title,
          subtitle = plot_subtitle, 
          fill = NULL) +
@@ -159,17 +166,15 @@ make_map <- function(data_plot,
           axis.ticks = element_blank(),
           axis.text = element_blank(),
           legend.title = element_blank(),
-          text = element_text(family = "ubuntu", size = 28, lineheight = 1),
+          text = element_text(family = "ubuntu", size = 18, lineheight = 1),
           legend.position = legend_position,
-          legend.direction = "horizontal",
-          legend.justification = "center",
-          legend.box = "vertical",
-          legend.key.height = unit(4, "mm"),
-          legend.key.width = unit(4, "mm"),
-          legend.spacing.x = unit(2, "mm"),
-          plot.title = element_text(size = 40, hjust = 0.5),
-          plot.subtitle = element_text(size = 28, hjust = 0.5),
-          plot.caption = element_text(size = 14, hjust = 0, lineheight = 0.3))
+          legend.direction = legend_direction,
+          legend.spacing = unit(2, "mm"),
+          legend.key.size = unit(1.5, 'lines'),
+          plot.title = element_text(size = 32, hjust = 0.5),
+          plot.subtitle = element_text(size = 24, hjust = 0.5),
+          plot.caption = element_text(size = 9, hjust = 0, lineheight = 0.3)) +
+    guides(fill = guide_legend(byrow = TRUE))
 }
 
 
@@ -232,7 +237,10 @@ server <- function(input, output){
   output$download_button <- downloadHandler(
     filename = "your_map.png",
     content = function(file){
-      ggsave(file, plot = plot_map(), width = 7, height = 4)
+      ggsave(file, 
+             plot = plot_map() + 
+               labs(caption = paste("Downloaded on", format(Sys.Date(), "%B %d, %Y"))), 
+             width = 12, height = 8)
     }
   )
   
