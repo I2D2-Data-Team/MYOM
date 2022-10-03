@@ -1,12 +1,26 @@
 library(shiny)
+library(shinyBS)
 library(shinythemes)
 library(shinydashboardPlus)
 library(data.table)
 library(tidyverse)
 library(sf)
+library(DT)
 
 not_sel <- "Not Selected"
 
+color_palette <-
+  list(
+    yellow_grn = c("#fff999", "#f1d581", "#b6c45c", "#7db257", "#4c9c53", "#34834b", "#146c37"),
+    yellow_red = RColorBrewer::brewer.pal(7, "YlOrRd"),
+    purple_red = RColorBrewer::brewer.pal(7, "RdPu"),
+    blu_purple = RColorBrewer::brewer.pal(7, "BuPu"),
+    yellow_blu = c(RColorBrewer::brewer.pal(11, "Spectral")[6:11], "#darkslateblue"),
+    yellow_pur = viridis::magma(18)[seq(17, 5, -2)],
+    viridius = viridis::viridis(13)[seq(13, 1, -2)]
+  )
+
+my_font <- "serif"
 
 
 # READ DATA ---------------------------------------------------------------
@@ -19,8 +33,6 @@ ia_county_map <- read_rds("data/IA-county-map.rds")
 
 # Read list with rectified names of Iowa counties
 ia_counties <- read_csv("data/IA-county-names-standard.csv")
-
-# data <- fread("TEMP.csv")
 
 
 # UI - ABOUT -------------------------------------------------------
@@ -60,27 +72,52 @@ main_page <- tabPanel(
     mainPanel(
       tabsetPanel(
         tabPanel(
-          title = "Map",
+          title = "Plot",
           column(width = 8, 
                  plotOutput("plot_map")
                  ),
           column(width = 4, 
-                 textInput("plot_title", "Title", placeholder = "Enter Title of the Map"),
-                 textInput("plot_subtitle", "Subtitle", placeholder = "Enter Subtitle of the Map"),
                  # uiOutput("update_button")
-                 selectInput("legend_position", "change position of the legend",
-                             choices = c("none", "bottom", "left", "right", "top"), 
-                             selected = "bottom"),
+                 bsCollapse(id = "collapseExample", 
+                            open = "Plot Title", 
+                            bsCollapsePanel("Plot Title",
+                                            textInput("plot_title", "Title", placeholder = "Enter Title of the Map"),
+                                            textInput("plot_subtitle", "Subtitle", placeholder = "Enter Subtitle of the Map"),
+                                            style = "primary"),
+                            bsCollapsePanel("Legend", 
+                                            textInput("legend_title", "Legend Name", placeholder = "Enter Name of the Variable"),
+                                            selectInput("legend_position", "Legend Position",
+                                                        choices = c("none", "bottom", "left", "right", "top"), 
+                                                        selected = "bottom"),
+                                            "To remove the legend from the plot select 'none' in the ",
+                                            "drop-down list", style = "primary"),
+                            bsCollapsePanel("Colors", 
+                                            selectInput("fill_palette", "County Colors",
+                                                        choices = c("Default" = "default",
+                                                                    "Yellow to Green" = "yellow_grn",
+                                                                    "Yellow to Red" = "yellow_red",
+                                                                    "Purple to Red" = "purple_red",
+                                                                    "Blue to Purple" = "blu_purple",
+                                                                    "Yellow to Blue" = "yellow_blu",
+                                                                    "Yellow to Purple" = "yellow_pur",
+                                                                    "Viridius Colors" = "viridius"), 
+                                                        selected = "default"), style = "primary")
+                            ),
                  br()
                  )
         ),
         tabPanel(
           title = "Data",
           fluidRow(
-            column(width = 12, strong("Plotted Data"))
-          ),
-          fluidRow(
-            column(width = 12, tableOutput("summary_table"))
+            column(width = 6,
+                   strong("Plotted Data"),
+                   DT::dataTableOutput("data_table")),
+            column(width = 6,
+                   strong("Data Not Plotted"),
+                   textOutput("CHECK1"),
+                   textOutput("CHECK2")
+                   # DT::dataTableOutput("data_table_not")
+                   )
           )
         )
       )
@@ -129,7 +166,9 @@ cut_values <- function(data_table, cut = "None", cut_n = 4) {
 make_map <- function(data_plot, 
                      plot_title = NULL,
                      plot_subtitle = NULL,
+                     legend_title = NULL,
                      legend_position = "bottom",
+                     fill_palette = "default",
                      ...){
   
   # do not show plot title if it is blank
@@ -142,6 +181,11 @@ make_map <- function(data_plot,
     plot_subtitle <- NULL
   }
   
+  # do not show plot legend name if it is blank
+  if (str_length(legend_title) == 0 | legend_title == "") {
+    legend_title <- NULL
+  }
+  
   # reorient legend text according to its position
   if (legend_position %in% c("bottom", "top")) {
     legend_direction = "horizontal"
@@ -149,32 +193,42 @@ make_map <- function(data_plot,
     legend_direction = "vertical"
   }
   
-  ia_county_map %>% 
+  
+  my_map <-
+    ia_county_map %>% 
     left_join(data_plot, by = c("fips")) %>%
-    mutate(county_name = 
+    mutate(county_name =
              ifelse(county_name == "Des Moines", "Des\nMoines", county_name)) %>%
     ggplot() +
     geom_sf(aes(fill = value), size = 0.2) +
     geom_sf(data = ia_state_map, fill = NA, size = 0.8, color = "black") +
-    geom_text(aes(long, lat, label = county_name),  color = "black",
-              family = "asap_cond", lineheight = .4, size = 3) +
+    geom_text(aes(long, lat, label = county_name),  color = "black", size = 2) +
     labs(title = plot_title,
          subtitle = plot_subtitle, 
-         fill = NULL) +
+         fill = legend_title) +
     theme(panel.background = element_blank(),
           axis.title = element_blank(),
           axis.ticks = element_blank(),
           axis.text = element_blank(),
-          legend.title = element_blank(),
-          text = element_text(family = "ubuntu", size = 18, lineheight = 1),
+          text = element_text(size = 18, lineheight = 1, family = my_font),
           legend.position = legend_position,
           legend.direction = legend_direction,
-          legend.spacing = unit(2, "mm"),
-          legend.key.size = unit(1.5, 'lines'),
+          # legend.spacing = unit(2, "mm"),
+          # legend.key.size = unit(1, "mm"),
           plot.title = element_text(size = 32, hjust = 0.5),
           plot.subtitle = element_text(size = 24, hjust = 0.5),
           plot.caption = element_text(size = 9, hjust = 0, lineheight = 0.3)) +
     guides(fill = guide_legend(byrow = TRUE))
+  
+  # change color palette
+  if (fill_palette != "default") {
+    my_map <- my_map +
+      scale_fill_manual(values = color_palette[[fill_palette]],
+                        drop = FALSE,  # prevents assigning wrong colors if bin is missing SEE teen_birth 2017
+                        na.value = "gray")
+  }
+  
+  return(my_map)
 }
 
 
@@ -182,7 +236,9 @@ make_map <- function(data_plot,
 
 ui <- navbarPage(
   title = "Data Visualization",
-  theme = shinytheme('united'),
+  # theme = shinytheme('united'),
+  # theme = shinytheme('sandstone'),
+  theme = shinytheme('yeti'),
   main_page,
   about_page
 )
@@ -228,7 +284,9 @@ server <- function(input, output){
     make_map(data_plot(), 
              input$plot_title,
              input$plot_subtitle,
-             input$legend_position)
+             input$legend_title,
+             input$legend_position,
+             input$fill_palette)
   })
 
   output$plot_map <- renderPlot(plot_map())
@@ -240,10 +298,13 @@ server <- function(input, output){
       ggsave(file, 
              plot = plot_map() + 
                labs(caption = paste("Downloaded on", format(Sys.Date(), "%B %d, %Y"))), 
-             width = 12, height = 8)
+             width = 10, height = 6, dpi = 320
+             )
     }
   )
   
+  # show table
+  output$data_table <- renderDataTable(data_plot())
   
 
   
@@ -254,12 +315,9 @@ server <- function(input, output){
     })
   })
   
-  # SHOW table
-  summary_table <- eventReactive(input$plot_button,{
-    head(data_plot(), 20) 
-  })
+  output$CHECK1 <- renderText(input$fill_palette)
+  output$CHECK2 <- renderText(color_palette[[input$fill_palette]])
   
-  output$summary_table <- renderTable(summary_table())
   
 }
 
