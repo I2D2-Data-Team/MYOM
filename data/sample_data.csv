@@ -1,100 +1,100 @@
-fips,county,numeric variable,dichotomous variable,nominal variable,integer variable,county seat,area sq mi
-19001,Adair,0.391304348,No,Mountain Dew,8,Greenfield,569
-19003,Adams,0.164179104,No,Squirt,5,Corning,424
-19005,Allamakee,0.292792793,Yes,Mountain Dew,9,Waukon,640
-19007,Appanoose,0.22962963,No,Coke,2,Centerville,496
-19009,Audubon,0.365384615,Yes,Squirt,7,Audubon,443
-19011,Benton,0.197014925,No,Sprite,2,Vinton,716
-19013,Black Hawk,0.25732899,No,Squirt,1,Waterloo,567
-19015,Boone,0.201581028,No,Pepsi,1,Boone,572
-19017,Bremer,0.0625,Yes,Coke,5,Waverly,428
-19019,Buchanan,0.170886076,Yes,Coke,2,Independence,571
-19021,Buena Vista,0.252427184,Yes,Mountain Dew,3,Storm Lake,575
-19023,Butler,0.146341463,Yes,Pepsi,8,Allison,580
-19025,Calhoun,0.152542373,Yes,Mountain Dew,8,Rockwell City,570
-19027,Carroll,0.083333333,Yes,Squirt,7,Carroll,569
-19029,Cass,0.270491803,Yes,Mountain Dew,7,Atlantic,564
-19031,Cedar,0.119791667,Yes,Squirt,9,Tipton,580
-19033,Cerro Gordo,0.253333333,No,Mountain Dew,4,Mason City,568
-19035,Cherokee,0.283783784,Yes,Sprite,3,Cherokee,577
-19037,Chickasaw,0.16080402,Yes,Sprite,2,New Hampton,505
-19039,Clarke,0.425373134,Yes,Mountain Dew,8,Osceola,431
-19041,Clay,0.163636364,Yes,Mountain Dew,5,Spencer,569
-19043,Clayton,0.174129353,No,Mountain Dew,6,Elkader,779
-19045,Clinton,0.221532091,Yes,Coke,10,Clinton,695
-19047,Crawford,0.570934256,No,Coke,4,Denison,714
-19049,Dallas,0.104526749,No,Mountain Dew,10,Adel,586
-19051,Davis,0.176470588,No,Pepsi,2,Bloomfield,503
-19053,Decatur,0.14,No,Squirt,10,Leon,532
-19055,Delaware,0.236966825,No,Squirt,3,Manchester,578
-19057,Des Moines,0.191176471,No,Mountain Dew,3,Burlington,416
-19059,Dickinson,0.060747664,No,Squirt,4,Spirit Lake,381
-19061,Dubuque,0.138582677,No,Pepsi,8,Dubuque,608
-19063,Emmet,0.296703297,Yes,Mountain Dew,10,Estherville,396
-19065,Fayette,0.21192053,No,Mountain Dew,9,West Union,731
-19067,Floyd,0.201834862,No,Pepsi,4,Charles City,501
-19069,Franklin,0.078431373,Yes,Squirt,5,Hampton,582
-19071,Fremont,0.346153846,No,Sprite,4,Sidney,511
-19073,Greene,0.091954023,No,Squirt,7,Jefferson,568
-19075,Grundy,0.013513514,Yes,Sprite,6,Grundy Center,503
-19077,Guthrie,0.254901961,Yes,Mountain Dew,1,Guthrie Center,591
-19079,Hamilton,0.028571429,No,Squirt,7,Webster City,577
-19081,Hancock,0.0859375,Yes,Squirt,2,Garner,571
-19083,Hardin,0.38125,No,Mountain Dew,8,Eldora,569
-19085,Harrison,0.409836066,Yes,Mountain Dew,9,Logan,697
-19087,Henry,0.090163934,No,Squirt,0,Mount Pleasant,434
-19089,Howard,0.082644628,No,Coke,3,Cresco,473
-19091,Humboldt,0.262626263,Yes,Squirt,2,Dakota City,434
-19093,Ida,0.231404959,Yes,Mountain Dew,8,Ida Grove,432
-19095,Iowa,0.056410256,No,Squirt,,Marengo,586
-19097,Jackson,0.427419355,No,Mountain Dew,7,Maquoketa,636
-19099,Jasper,0.101167315,No,Sprite,4,Newton,730
-19101,Jefferson,0.195402299,No,Coke,7,Fairfield,435
-19103,Johnson,0.095380924,No,Coke,10,Iowa City,614
-19105,Jones,0.081896552,Yes,Mountain Dew,4,Anamosa,575
-19107,Keokuk,0.192982456,Yes,Squirt,6,Sigourney,579
-19109,Kossuth,0.141414141,No,Squirt,3,Algona,973
-19111,Lee,0.276457883,Yes,Squirt,7,Fort Madison and Keokuk,517
-19113,Linn,0.161148649,Yes,Mountain Dew,6,Cedar Rapids,718
-19115,Louisa,0.288235294,Yes,Coke,10,Wapello,402
-19117,Lucas,0.05,No,Squirt,1,Chariton,431
-19119,Lyon,0.392156863,No,Squirt,7,Rock Rapids,588
-19121,Madison,0.05988024,No,Pepsi,4,Winterset,561
-19123,Mahaska,0.301075269,No,Squirt,1,Oskaloosa,571
-19125,Marion,0.267477204,Yes,Coke,5,Knoxville,554
-19127,Marshall,0.250388802,No,Coke,7,Marshalltown,572
-19129,Mills,0.137254902,Yes,Coke,10,Glenwood,437
-19131,Mitchell,0.181102362,Yes,Pepsi,5,Osage,469
-19133,Monona,0.225352113,No,Squirt,7,Onawa,693
-19135,Monroe,0.360655738,Yes,Sprite,4,Albia,433
-19137,Montgomery,0.238095238,Yes,Mountain Dew,10,Red Oak,424
-19139,Muscatine,0.313408724,Yes,Pepsi,10,Muscatine,439
-19141,O'Brien,0.50802139,Yes,Pepsi,3,Primghar,573
-19143,Osceola,0.095890411,Yes,Pepsi,4,Sibley,399
-19145,Page,0.069958848,Yes,Squirt,7,Clarinda,535
-19147,Palo Alto,0.119047619,Yes,Pepsi,10,Emmetsburg,564
-19149,Plymouth,0.076655052,No,Squirt,1,Le Mars,864
-19151,Pocahontas,0.25,Yes,Mountain Dew,10,Pocahontas,578
-19153,Polk,0.192386132,Yes,Coke,10,Des Moines,570
-19155,Pottawattamie,0.199306759,No,Coke,6,Council Bluffs,954
-19157,Poweshiek,0.139784946,Yes,Mountain Dew,1,Montezuma,585
-19159,Ringgold,0.088607595,Yes,Squirt,10,Mount Ayr,538
-19161,Sac,0.405228758,No,Mountain Dew,10,Sac City,576
-19163,Scott,0.198339033,Yes,Mountain Dew,2,Davenport,458
-19165,Shelby,0.083333333,No,Pepsi,2,Harlan,591
-19167,Sioux,0.090702948,Yes,Pepsi,6,Orange City,768
-19169,Story,0.216101695,No,Squirt,8,Nevada,573
-19171,Tama,0.32780083,Yes,Squirt,4,Toledo,721
-19173,Taylor,0.209677419,Yes,Squirt,8,Bedford,534
-19175,Union,0.10952381,No,Mountain Dew,3,Creston,424
-19177,Van Buren,0.069306931,Yes,Sprite,6,Keosauqua,485
-19179,Wapello,0.230290456,Yes,Coke,10,Ottumwa,432
-19181,Warren,0.080482897,Yes,Coke,3,Indianola,572
-19183,Washington,0.291375291,Yes,Pepsi,,Washington,569
-19185,Wayne,0.277108434,Yes,Mountain Dew,2,Corydon,526
-19187,Webster,0.279591837,Yes,Coke,5,Fort Dodge,715
-19189,Winnebago,0.178082192,No,Coke,4,Forest City,400
-19191,Winneshiek,0.14619883,No,Squirt,8,Decorah,690
-19193,Woodbury,0.293456709,No,Squirt,5,Sioux City,873
-19195,Worth,0.515384615,No,Squirt,4,Northwood,400
-19197,Wright,0.214285714,Yes,Mountain Dew,5,Clarion,581
+fips,county,numeric,percent label,dichotomous character,dichotomous number,nominal,integer,county seat,area sq mi
+19001,Adair,0.391304348,39%,No,1,Mountain Dew,8,Greenfield,569
+19003,Adams,0.164179104,16%,No,1,Squirt,5,Corning,424
+19005,Allamakee,0.292792793,29%,Yes,1,Mountain Dew,9,Waukon,640
+19007,Appanoose,0.22962963,23%,No,0,Coke,2,Centerville,496
+19009,Audubon,0.365384615,37%,Yes,1,Squirt,7,Audubon,443
+19011,Benton,0.197014925,20%,No,1,Sprite,2,Vinton,716
+19013,Black Hawk,0.25732899,26%,No,0,Squirt,1,Waterloo,567
+19015,Boone,0.201581028,20%,No,1,Pepsi,1,Boone,572
+19017,Bremer,0.0625,6%,Yes,1,Coke,5,Waverly,428
+19019,Buchanan,0.170886076,17%,Yes,1,Coke,2,Independence,571
+19021,Buena Vista,0.252427184,25%,Yes,0,Mountain Dew,3,Storm Lake,575
+19023,Butler,0.146341463,15%,Yes,0,Pepsi,8,Allison,580
+19025,Calhoun,0.152542373,15%,Yes,1,Mountain Dew,8,Rockwell City,570
+19027,Carroll,0.083333333,8%,Yes,0,Squirt,7,Carroll,569
+19029,Cass,0.270491803,27%,Yes,0,Mountain Dew,7,Atlantic,564
+19031,Cedar,0.119791667,12%,Yes,1,Squirt,9,Tipton,580
+19033,Cerro Gordo,0.253333333,25%,No,1,Mountain Dew,4,Mason City,568
+19035,Cherokee,0.283783784,28%,Yes,1,Sprite,3,Cherokee,577
+19037,Chickasaw,0.16080402,16%,Yes,1,Sprite,2,New Hampton,505
+19039,Clarke,0.425373134,43%,Yes,0,Mountain Dew,8,Osceola,431
+19041,Clay,0.163636364,16%,Yes,0,Mountain Dew,5,Spencer,569
+19043,Clayton,0.174129353,17%,No,1,Mountain Dew,6,Elkader,779
+19045,Clinton,0.221532091,22%,Yes,1,Coke,10,Clinton,695
+19047,Crawford,0.570934256,57%,No,1,Coke,4,Denison,714
+19049,Dallas,0.104526749,10%,No,1,Mountain Dew,10,Adel,586
+19051,Davis,0.176470588,18%,No,0,Pepsi,2,Bloomfield,503
+19053,Decatur,0.14,14%,No,1,Squirt,10,Leon,532
+19055,Delaware,0.236966825,24%,No,0,Squirt,3,Manchester,578
+19057,Des Moines,0.191176471,19%,No,1,Mountain Dew,3,Burlington,416
+19059,Dickinson,0.060747664,6%,No,0,Squirt,4,Spirit Lake,381
+19061,Dubuque,0.138582677,14%,No,1,Pepsi,8,Dubuque,608
+19063,Emmet,0.296703297,30%,Yes,1,Mountain Dew,10,Estherville,396
+19065,Fayette,0.21192053,21%,No,0,Mountain Dew,9,West Union,731
+19067,Floyd,0.201834862,20%,No,0,Pepsi,4,Charles City,501
+19069,Franklin,0.078431373,8%,Yes,1,Squirt,5,Hampton,582
+19071,Fremont,0.346153846,35%,No,1,Sprite,4,Sidney,511
+19073,Greene,0.091954023,9%,No,1,Squirt,7,Jefferson,568
+19075,Grundy,0.013513514,1%,Yes,0,Sprite,6,Grundy Center,503
+19077,Guthrie,0.254901961,25%,Yes,0,Mountain Dew,1,Guthrie Center,591
+19079,Hamilton,0.028571429,3%,No,1,Squirt,7,Webster City,577
+19081,Hancock,0.0859375,9%,Yes,1,Squirt,2,Garner,571
+19083,Hardin,0.38125,38%,No,1,Mountain Dew,8,Eldora,569
+19085,Harrison,0.409836066,41%,Yes,1,Mountain Dew,9,Logan,697
+19087,Henry,0.090163934,9%,No,0,Squirt,0,Mount Pleasant,434
+19089,Howard,0.082644628,8%,No,0,Coke,3,Cresco,473
+19091,Humboldt,0.262626263,26%,Yes,1,Squirt,2,Dakota City,434
+19093,Ida,0.231404959,23%,Yes,1,Mountain Dew,8,Ida Grove,432
+19095,Iowa,0.056410256,6%,No,1,Squirt,,Marengo,586
+19097,Jackson,0.427419355,43%,No,1,Mountain Dew,7,Maquoketa,636
+19099,Jasper,0.101167315,10%,No,1,Sprite,4,Newton,730
+19101,Jefferson,0.195402299,20%,No,1,Coke,7,Fairfield,435
+19103,Johnson,0.095380924,10%,No,0,Coke,10,Iowa City,614
+19105,Jones,0.081896552,8%,Yes,1,Mountain Dew,4,Anamosa,575
+19107,Keokuk,0.192982456,19%,Yes,0,Squirt,6,Sigourney,579
+19109,Kossuth,0.141414141,14%,No,0,Squirt,3,Algona,973
+19111,Lee,0.276457883,28%,Yes,0,Squirt,7,Fort Madison and Keokuk,517
+19113,Linn,0.161148649,16%,Yes,1,Mountain Dew,6,Cedar Rapids,718
+19115,Louisa,0.288235294,29%,Yes,1,Coke,10,Wapello,402
+19117,Lucas,0.05,5%,No,1,Squirt,1,Chariton,431
+19119,Lyon,0.392156863,39%,No,1,Squirt,7,Rock Rapids,588
+19121,Madison,0.05988024,6%,No,1,Pepsi,4,Winterset,561
+19123,Mahaska,0.301075269,30%,No,1,Squirt,1,Oskaloosa,571
+19125,Marion,0.267477204,27%,Yes,1,Coke,5,Knoxville,554
+19127,Marshall,0.250388802,25%,No,1,Coke,7,Marshalltown,572
+19129,Mills,0.137254902,14%,Yes,1,Coke,10,Glenwood,437
+19131,Mitchell,0.181102362,18%,Yes,1,Pepsi,5,Osage,469
+19133,Monona,0.225352113,23%,No,1,Squirt,7,Onawa,693
+19135,Monroe,0.360655738,36%,Yes,0,Sprite,4,Albia,433
+19137,Montgomery,0.238095238,24%,Yes,1,Mountain Dew,10,Red Oak,424
+19139,Muscatine,0.313408724,31%,Yes,1,Pepsi,10,Muscatine,439
+19141,O'Brien,0.50802139,51%,Yes,0,Pepsi,3,Primghar,573
+19143,Osceola,0.095890411,10%,Yes,1,Pepsi,4,Sibley,399
+19145,Page,0.069958848,7%,Yes,0,Squirt,7,Clarinda,535
+19147,Palo Alto,0.119047619,12%,Yes,1,Pepsi,10,Emmetsburg,564
+19149,Plymouth,0.076655052,8%,No,0,Squirt,1,Le Mars,864
+19151,Pocahontas,0.25,25%,Yes,1,Mountain Dew,10,Pocahontas,578
+19153,Polk,0.192386132,19%,Yes,0,Coke,10,Des Moines,570
+19155,Pottawattamie,0.199306759,20%,No,1,Coke,6,Council Bluffs,954
+19157,Poweshiek,0.139784946,14%,Yes,0,Mountain Dew,1,Montezuma,585
+19159,Ringgold,0.088607595,9%,Yes,1,Squirt,10,Mount Ayr,538
+19161,Sac,0.405228758,41%,No,0,Mountain Dew,10,Sac City,576
+19163,Scott,0.198339033,20%,Yes,1,Mountain Dew,2,Davenport,458
+19165,Shelby,0.083333333,8%,No,0,Pepsi,2,Harlan,591
+19167,Sioux,0.090702948,9%,Yes,1,Pepsi,6,Orange City,768
+19169,Story,0.216101695,22%,No,1,Squirt,8,Nevada,573
+19171,Tama,0.32780083,33%,Yes,1,Squirt,4,Toledo,721
+19173,Taylor,0.209677419,21%,Yes,0,Squirt,8,Bedford,534
+19175,Union,0.10952381,11%,No,0,Mountain Dew,3,Creston,424
+19177,Van Buren,0.069306931,7%,Yes,0,Sprite,6,Keosauqua,485
+19179,Wapello,0.230290456,23%,Yes,0,Coke,10,Ottumwa,432
+19181,Warren,0.080482897,8%,Yes,0,Coke,3,Indianola,572
+19183,Washington,0.291375291,29%,Yes,0,Pepsi,,Washington,569
+19185,Wayne,0.277108434,28%,Yes,1,Mountain Dew,2,Corydon,526
+19187,Webster,0.279591837,28%,Yes,1,Coke,5,Fort Dodge,715
+19189,Winnebago,0.178082192,18%,No,1,Coke,4,Forest City,400
+19191,Winneshiek,0.14619883,15%,No,1,Squirt,8,Decorah,690
+19193,Woodbury,0.293456709,29%,No,0,Squirt,5,Sioux City,873
+19195,Worth,0.515384615,52%,No,0,Squirt,4,Northwood,400
+19197,Wright,0.214285714,21%,Yes,1,Mountain Dew,5,Clarion,581
