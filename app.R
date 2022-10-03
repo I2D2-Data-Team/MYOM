@@ -15,7 +15,7 @@ color_palette <-
     yellow_red = RColorBrewer::brewer.pal(7, "YlOrRd"),
     purple_red = RColorBrewer::brewer.pal(7, "RdPu"),
     blu_purple = RColorBrewer::brewer.pal(7, "BuPu"),
-    yellow_blu = c(RColorBrewer::brewer.pal(11, "Spectral")[6:11], "#darkslateblue"),
+    yellow_blu = c(RColorBrewer::brewer.pal(11, "Spectral")[6:11], "darkslateblue"),
     yellow_pur = viridis::magma(18)[seq(17, 5, -2)],
     viridius = viridis::viridis(13)[seq(13, 1, -2)]
   )
