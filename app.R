@@ -109,15 +109,15 @@ main_page <- tabPanel(
         tabPanel(
           title = "Data",
           fluidRow(
-            column(width = 6,
-                   strong("Plotted Data"),
-                   DT::dataTableOutput("data_table")),
-            column(width = 6,
-                   strong("Data Not Plotted"),
-                   textOutput("CHECK1"),
-                   textOutput("CHECK2")
-                   # DT::dataTableOutput("data_table_not")
-                   )
+            column(width = 12,
+                   # strong("Plotted Data"),
+                   DT::dataTableOutput("data_table"))#,
+            # column(width = 6,
+            #        strong("Data Not Plotted"),
+            #        textOutput("CHECK1"),
+            #        textOutput("CHECK2")
+            #        # DT::dataTableOutput("data_table_not")
+            #        )
           )
         )
       )
@@ -149,7 +149,30 @@ create_var_table <- function(data_input, var_county, var_value, var_label = not_
   }
 }
 
-# Create bins
+
+# Transform plotting variable into factor
+char_into_factor <- function(data_table) {
+  # character value into factor
+  if (is.character(data_table$value)) data_table$value <- as.factor(data_table$value)
+  return(data_table)
+}
+
+dichotomous_into_factor <- function(data_table) {
+  # dichotomous value into factor
+  if (is.integer(data_table$value) && 
+      length(!is.na(unique(data_table$value))) < 3) 
+    data_table$value <- as.factor(data_table$value)
+  return(data_table)
+}
+
+value_into_factor <- function(data_table) {
+  data_table %>%
+    char_into_factor() %>%
+    dichotomous_into_factor()
+}
+
+
+# Create bins in not a factor
 cut_values <- function(data_table, cut = "None", cut_n = 4) {
   switch (cut,
           None  = data_table,
@@ -272,8 +295,13 @@ server <- function(input, output){
   
   # fix county names
   data_plot <- reactive({
-    create_var_table(data_input(), var_county(), var_value(), var_label()) %>%
-      cut_values(cut_value(), cut_n())
+    df <- create_var_table(data_input(), var_county(), var_value(), var_label()) %>%
+      value_into_factor()
+    # split into bins only if numeric
+    if (!is.factor(df$value)) {
+      df <- df %>% cut_values(cut_value(), cut_n())
+    }
+    return(df)
   })
 
   
@@ -304,7 +332,8 @@ server <- function(input, output){
   )
   
   # show table
-  output$data_table <- renderDataTable(data_plot())
+  # output$data_table <- renderDataTable(data_plot())
+  output$data_table <- renderDataTable(data_input())
   
 
   
