@@ -64,7 +64,6 @@ main_page <- tabPanel(
         condition = "input.cut_value != 'None'",
         sliderInput("cut_n", "Number of Bins", 1, 7, 4, ticks = FALSE)
         ),
-      selectInput("var_label", "Select Labels", choices = c(not_sel)),
       br(),
       actionButton("plot_button", "Plot Map", icon = icon("play")),
       downloadButton("download_button", "Download Map", icon = icon("download"))
@@ -92,6 +91,14 @@ main_page <- tabPanel(
                                             "To remove the legend from the plot select 'none' in the drop-down list", 
                                             checkboxInput("hide_missing", label = "Hide Missing Label from Legend", value = FALSE),
                                             style = "primary"),
+                            bsCollapsePanel("County Labels", 
+                                            checkboxInput("show_county_name", label = "Show County Names", value = TRUE),
+                                            checkboxInput("show_other_name", label = "Show Other Label", value = FALSE),
+                                            conditionalPanel(
+                                              condition = "input.show_other_name == true",
+                                              selectInput("var_label", "Select Labels", choices = c(not_sel))
+                                              ),
+                                            style = "primary"),
                             bsCollapsePanel("Colors", 
                                             selectInput("fill_palette", "County Colors",
                                                         choices = c("Yellow to Green" = "yellow_grn",
@@ -116,6 +123,9 @@ main_page <- tabPanel(
                                                                       "Slate Gray" = "slategray1"), 
                                                           selected = "gray80"),
                                             ),
+                                            style = "primary"),
+                            bsCollapsePanel("Fonts", 
+                                            "Some Drop Down Hear",
                                             style = "primary")
                             ),
                  br()
@@ -209,6 +219,8 @@ make_map <- function(data_plot,
                      fill_palette = "default",
                      fill_missing = "default",
                      hide_missing = FALSE,
+                     show_county_name = TRUE,
+                     show_other_name = FALSE,
                      ...){
   
   # do not show plot title if it is blank
@@ -242,7 +254,6 @@ make_map <- function(data_plot,
     ggplot() +
     geom_sf(aes(fill = value), size = 0.2) +
     geom_sf(data = ia_state_map, fill = NA, size = 0.8, color = "black") +
-    geom_text(aes(long, lat, label = county_name),  color = "black", size = 2) +
     labs(title = plot_title,
          subtitle = plot_subtitle, 
          fill = legend_title) +
@@ -260,6 +271,20 @@ make_map <- function(data_plot,
           plot.caption = element_text(size = 9, hjust = 0, lineheight = 0.3)) +
     guides(fill = guide_legend(byrow = TRUE))
   
+  # display labels on the counties
+  if (show_county_name && !show_other_name) {
+    my_map <- my_map +
+      geom_text(aes(long, lat, label = county_name),  color = "black", size = 2)
+  } else if (show_county_name && show_other_name) {
+    my_map <- my_map +
+      geom_text(aes(long, lat, label = county_name),  color = "black", size = 2, nudge_y = -0.045) +
+      geom_text(aes(long, lat, label = label),  color = "black", size = 3, nudge_y = 0.045)
+  } else if (!show_county_name && show_other_name) {
+    my_map <- my_map +
+      geom_text(aes(long, lat, label = label),  color = "black", size = 3)
+  } else if (!show_county_name && !show_other_name) {
+    my_map <- my_map
+  }
   
   # change color palette
   if ((fill_palette != "default" || fill_missing != "default") && !is.factor(data_plot$value)) {
@@ -351,7 +376,9 @@ server <- function(input, output){
              input$legend_position,
              input$fill_palette,
              input$fill_missing,
-             input$hide_missing
+             input$hide_missing,
+             input$show_county_name,
+             input$show_other_name
              )
   })
 
