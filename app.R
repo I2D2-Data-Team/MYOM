@@ -20,7 +20,6 @@ color_palette <-
     viridius = viridis::viridis(13)[seq(13, 1, -2)]
   )
 
-my_font <- "serif"
 
 
 # READ DATA ---------------------------------------------------------------
@@ -126,7 +125,16 @@ main_page <- tabPanel(
                                             ),
                                             style = "primary"),
                             bsCollapsePanel("Fonts", 
-                                            "Some Drop Down Hear",
+                                            selectInput("font_type", "Font Type",
+                                                        choices = c("Arial" = "sans",
+                                                                    "Corier" = "mono",
+                                                                    "Times New Roman" = "serif"), 
+                                                        selected = "serif"),
+                                            sliderInput("font_title_size", "Change Title Font Size", -5, 5, 0, ticks = FALSE),
+                                            sliderInput("font_subtitle_size", "Change Subtitle Font Size", -5, 5, 0, ticks = FALSE),
+                                            sliderInput("font_legend_title_size", "Change Legend Title Font Size", -4, 4, 0, ticks = FALSE),
+                                            sliderInput("font_legend_text_size", "Change Legend Text Font Size", -4, 4, 0, ticks = FALSE),
+                                            
                                             style = "primary")
                             ),
                  br()
@@ -220,6 +228,11 @@ make_map <- function(data_plot,
                      hide_missing = FALSE,
                      show_county_name = TRUE,
                      show_other_name = FALSE,
+                     font_type,
+                     font_title_size,
+                     font_subtitle_size,
+                     font_legend_title_size,
+                     font_legend_text_size,
                      ...){
   
   # do not show plot title if it is blank
@@ -248,8 +261,6 @@ make_map <- function(data_plot,
   my_map <-
     ia_county_map %>% 
     left_join(data_plot, by = c("fips")) %>%
-    mutate(county_name =
-             ifelse(county_name == "Des Moines", "Des\nMoines", county_name)) %>%
     ggplot() +
     geom_sf(aes(fill = value), size = 0.2) +
     geom_sf(data = ia_state_map, fill = NA, size = 0.8, color = "black") +
@@ -260,27 +271,29 @@ make_map <- function(data_plot,
           axis.title = element_blank(),
           axis.ticks = element_blank(),
           axis.text = element_blank(),
-          text = element_text(size = 18, lineheight = 1, family = my_font),
+          text = element_text(size = 18, lineheight = 1, family = font_type),
           legend.position = legend_position,
           legend.direction = legend_direction,
           # legend.spacing = unit(2, "mm"),
           # legend.key.size = unit(1, "mm"),
-          plot.title = element_text(size = 32, hjust = 0.5),
-          plot.subtitle = element_text(size = 24, hjust = 0.5),
-          plot.caption = element_text(size = 9, hjust = 0, lineheight = 0.3)) +
+          plot.title = element_text(size = (32 + 2 * font_title_size), hjust = 0.5),
+          plot.subtitle = element_text(size = (24 + 2 * font_subtitle_size), hjust = 0.5),
+          legend.title = element_text(size = (18 + 2 * font_legend_title_size)),
+          legend.text = element_text(size = (18 + 2 * font_legend_text_size)),
+          plot.caption = element_text(size = 8, hjust = 0, lineheight = 0.3)) +
     guides(fill = guide_legend(byrow = TRUE))
   
   # display labels on the counties
   if (show_county_name && !show_other_name) {
     my_map <- my_map +
-      geom_text(aes(long, lat, label = county_name),  color = "black", size = 2)
+      geom_text(aes(long, lat, label = str_wrap(county_name, 9)),  color = "black", size = 2)
   } else if (show_county_name && show_other_name) {
     my_map <- my_map +
       geom_text(aes(long, lat, label = county_name),  color = "black", size = 2, nudge_y = -0.045) +
-      geom_text(aes(long, lat, label = label),  color = "black", size = 3, nudge_y = 0.045)
+      geom_text(aes(long, lat, label = str_wrap(label, 9)),  color = "black", size = 3, nudge_y = 0.045)
   } else if (!show_county_name && show_other_name) {
     my_map <- my_map +
-      geom_text(aes(long, lat, label = label),  color = "black", size = 3)
+      geom_text(aes(long, lat, label = str_wrap(label, 9)),  color = "black", size = 3)
   } else if (!show_county_name && !show_other_name) {
     my_map <- my_map
   }
@@ -391,7 +404,12 @@ server <- function(input, output){
              input$fill_missing,
              input$hide_missing,
              input$show_county_name,
-             input$show_other_name
+             input$show_other_name,
+             input$font_type,
+             input$font_title_size,
+             input$font_subtitle_size,
+             input$font_legend_title_size,
+             input$font_legend_text_size
              )
   })
 
