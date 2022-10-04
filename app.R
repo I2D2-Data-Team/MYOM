@@ -89,8 +89,9 @@ main_page <- tabPanel(
                                             selectInput("legend_position", "Legend Position",
                                                         choices = c("none", "bottom", "left", "right", "top"), 
                                                         selected = "bottom"),
-                                            "To remove the legend from the plot select 'none' in the ",
-                                            "drop-down list", style = "primary"),
+                                            "To remove the legend from the plot select 'none' in the drop-down list", 
+                                            checkboxInput("hide_missing", label = "Hide Missing Label from Legend", value = FALSE),
+                                            style = "primary"),
                             bsCollapsePanel("Colors", 
                                             selectInput("fill_palette", "County Colors",
                                                         choices = c("Yellow to Green" = "yellow_grn",
@@ -101,17 +102,20 @@ main_page <- tabPanel(
                                                                     "Yellow to Purple" = "yellow_pur",
                                                                     "Viridius Colors" = "viridius"), 
                                                         selected = "yellow_grn"), 
-                                            selectInput("fill_missing", "Missing County Color",
-                                                        choices = c("White" = "gray100",
-                                                                    "Grey (Light)" = "gray80",
-                                                                    "Grey" = "gray50",
-                                                                    "Grey (Dark)" = "gray30",
-                                                                    "Black" = "gray0",
-                                                                    "Azure" = "azure1",
-                                                                    "Khaki" = "khaki",
-                                                                    "Silk" = "cornsilk1",
-                                                                    "Slate Gray" = "slategray1"), 
-                                                        selected = "gray80"), 
+                                            conditionalPanel(
+                                              condition = "input.hide_missing == false",
+                                              selectInput("fill_missing", "Missing County Color",
+                                                          choices = c("White" = "gray100",
+                                                                      "Grey (Light)" = "gray80",
+                                                                      "Grey" = "gray50",
+                                                                      "Grey (Dark)" = "gray30",
+                                                                      "Black" = "gray0",
+                                                                      "Azure" = "azure1",
+                                                                      "Khaki" = "khaki",
+                                                                      "Silk" = "cornsilk1",
+                                                                      "Slate Gray" = "slategray1"), 
+                                                          selected = "gray80"),
+                                            ),
                                             style = "primary")
                             ),
                  br()
@@ -204,6 +208,7 @@ make_map <- function(data_plot,
                      legend_position = "bottom",
                      fill_palette = "default",
                      fill_missing = "default",
+                     hide_missing = FALSE,
                      ...){
   
   # do not show plot title if it is blank
@@ -261,7 +266,8 @@ make_map <- function(data_plot,
     my_map <- my_map +
       scale_fill_gradient(low = color_palette[[fill_palette]][1],
                           high = color_palette[[fill_palette]][7],
-                          na.value = fill_missing)
+                          na.value = fill_missing,
+                          na.translate = !hide_missing)
   }
   
   # change color palette
@@ -276,7 +282,8 @@ make_map <- function(data_plot,
       scale_fill_manual(values = color_palette[[fill_palette]][my_colors],
                         # prevents assigning wrong colors if bin is missing SEE teen_birth 2017
                         drop = FALSE,
-                        na.value = fill_missing)
+                        na.value = fill_missing,
+                        na.translate = !hide_missing)
   }
   
   return(my_map)
@@ -343,7 +350,9 @@ server <- function(input, output){
              input$legend_title,
              input$legend_position,
              input$fill_palette,
-             input$fill_missing)
+             input$fill_missing,
+             input$hide_missing
+             )
   })
 
   output$plot_map <- renderPlot(plot_map())
