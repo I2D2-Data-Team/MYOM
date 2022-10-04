@@ -109,6 +109,7 @@ main_page <- tabPanel(
                                                                     "Yellow to Purple" = "yellow_pur",
                                                                     "Viridius Colors" = "viridius"), 
                                                         selected = "yellow_grn"), 
+                                            checkboxInput("reverse_palette", label = "Reverse Colors", value = FALSE),
                                             conditionalPanel(
                                               condition = "input.hide_missing == false",
                                               selectInput("fill_missing", "Missing County Color",
@@ -208,15 +209,13 @@ cut_values <- function(data_table, cut = "None", cut_n = 4) {
 }
 
 
-
-# my_map <- make_map(data_plot(), var_county(), var_value(), var_label())
-
 make_map <- function(data_plot, 
                      plot_title = NULL,
                      plot_subtitle = NULL,
                      legend_title = NULL,
                      legend_position = "bottom",
                      fill_palette = "default",
+                     reverse_palette = FALSE,
                      fill_missing = "default",
                      hide_missing = FALSE,
                      show_county_name = TRUE,
@@ -288,20 +287,36 @@ make_map <- function(data_plot,
   
   # change color palette
   if ((fill_palette != "default" || fill_missing != "default") && !is.factor(data_plot$value)) {
+    # reverse colors
+    if (reverse_palette) {
+      low_color = color_palette[[fill_palette]][7]
+      high_color = color_palette[[fill_palette]][1]
+    } else {
+      low_color = color_palette[[fill_palette]][1]
+      high_color = color_palette[[fill_palette]][7]
+    }
+    if (hide_missing) {
+      fill_missing <- "white"
+    }
     my_map <- my_map +
-      scale_fill_gradient(low = color_palette[[fill_palette]][1],
-                          high = color_palette[[fill_palette]][7],
-                          na.value = fill_missing,
-                          na.translate = !hide_missing)
+      scale_fill_gradient(low = low_color,
+                          high = high_color,
+                          na.value = fill_missing)
   }
   
   # change color palette
   if ((fill_palette != "default" || fill_missing != "default") && is.factor(data_plot$value)) {
     num_levels <- length(levels(data_plot$value))
-    if (num_levels < 4) {
+    if (num_levels < 3) {
+      my_colors <- c(1, 7)
+    } else if (num_levels == 3) {
       my_colors <- c(1, 4, 7)
     } else {
-      my_colors <- c(1:7)
+      my_colors <- c(1:num_levels)
+    }
+    # reverse colors
+    if (reverse_palette) {
+      my_colors <- rev(my_colors)
     }
     my_map <- my_map +
       scale_fill_manual(values = color_palette[[fill_palette]][my_colors],
@@ -363,18 +378,16 @@ server <- function(input, output){
     }
     return(df)
   })
-
   
   # plot map
-  
   plot_map <- eventReactive(input$plot_button,{
-    # my_map <- make_map(data_plot(), var_county(), var_value(), var_label())
     make_map(data_plot(), 
              input$plot_title,
              input$plot_subtitle,
              input$legend_title,
              input$legend_position,
              input$fill_palette,
+             input$reverse_palette,
              input$fill_missing,
              input$hide_missing,
              input$show_county_name,
