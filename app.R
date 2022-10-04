@@ -62,7 +62,7 @@ main_page <- tabPanel(
                   choices = c("None", "Interval", "Number")),
       conditionalPanel(
         condition = "input.cut_value != 'None'",
-        sliderInput("cut_n", "Number of Bins", 1, 7, 1, ticks = FALSE)
+        sliderInput("cut_n", "Number of Bins", 1, 7, 4, ticks = FALSE)
         ),
       selectInput("var_label", "Select Labels", choices = c(not_sel)),
       br(),
@@ -93,15 +93,26 @@ main_page <- tabPanel(
                                             "drop-down list", style = "primary"),
                             bsCollapsePanel("Colors", 
                                             selectInput("fill_palette", "County Colors",
-                                                        choices = c("Default" = "default",
-                                                                    "Yellow to Green" = "yellow_grn",
+                                                        choices = c("Yellow to Green" = "yellow_grn",
                                                                     "Yellow to Red" = "yellow_red",
                                                                     "Purple to Red" = "purple_red",
                                                                     "Blue to Purple" = "blu_purple",
                                                                     "Yellow to Blue" = "yellow_blu",
                                                                     "Yellow to Purple" = "yellow_pur",
                                                                     "Viridius Colors" = "viridius"), 
-                                                        selected = "default"), style = "primary")
+                                                        selected = "yellow_grn"), 
+                                            selectInput("fill_missing", "Missing County Color",
+                                                        choices = c("White" = "gray100",
+                                                                    "Grey (Light)" = "gray80",
+                                                                    "Grey" = "gray50",
+                                                                    "Grey (Dark)" = "gray30",
+                                                                    "Black" = "gray0",
+                                                                    "Azure" = "azure1",
+                                                                    "Khaki" = "khaki",
+                                                                    "Silk" = "cornsilk1",
+                                                                    "Slate Gray" = "slategray1"), 
+                                                        selected = "gray80"), 
+                                            style = "primary")
                             ),
                  br()
                  )
@@ -153,15 +164,15 @@ create_var_table <- function(data_input, var_county, var_value, var_label = not_
 # Transform plotting variable into factor
 char_into_factor <- function(data_table) {
   # character value into factor
-  if (is.character(data_table$value)) data_table$value <- as.factor(data_table$value)
+  if (is.character(data_table$value)) data_table$value <- factor(data_table$value, exclude = c("", " ", NA))
   return(data_table)
 }
 
 dichotomous_into_factor <- function(data_table) {
   # dichotomous value into factor
   if (is.integer(data_table$value) && 
-      length(!is.na(unique(data_table$value))) < 3) 
-    data_table$value <- as.factor(data_table$value)
+      length(unique(data_table$value[!is.na(data_table$value)])) < 3) 
+    data_table$value <- factor(data_table$value, exclude = c("", " ", NA))
   return(data_table)
 }
 
@@ -192,6 +203,7 @@ make_map <- function(data_plot,
                      legend_title = NULL,
                      legend_position = "bottom",
                      fill_palette = "default",
+                     fill_missing = "default",
                      ...){
   
   # do not show plot title if it is blank
@@ -243,12 +255,28 @@ make_map <- function(data_plot,
           plot.caption = element_text(size = 9, hjust = 0, lineheight = 0.3)) +
     guides(fill = guide_legend(byrow = TRUE))
   
+  
   # change color palette
-  if (fill_palette != "default") {
+  if ((fill_palette != "default" || fill_missing != "default") && !is.factor(data_plot$value)) {
     my_map <- my_map +
-      scale_fill_manual(values = color_palette[[fill_palette]],
-                        drop = FALSE,  # prevents assigning wrong colors if bin is missing SEE teen_birth 2017
-                        na.value = "gray")
+      scale_fill_gradient(low = color_palette[[fill_palette]][1],
+                          high = color_palette[[fill_palette]][7],
+                          na.value = fill_missing)
+  }
+  
+  # change color palette
+  if ((fill_palette != "default" || fill_missing != "default") && is.factor(data_plot$value)) {
+    num_levels <- length(levels(data_plot$value))
+    if (num_levels < 4) {
+      my_colors <- c(1, 4, 7)
+    } else {
+      my_colors <- c(1:7)
+    }
+    my_map <- my_map +
+      scale_fill_manual(values = color_palette[[fill_palette]][my_colors],
+                        # prevents assigning wrong colors if bin is missing SEE teen_birth 2017
+                        drop = FALSE,
+                        na.value = fill_missing)
   }
   
   return(my_map)
@@ -314,7 +342,8 @@ server <- function(input, output){
              input$plot_subtitle,
              input$legend_title,
              input$legend_position,
-             input$fill_palette)
+             input$fill_palette,
+             input$fill_missing)
   })
 
   output$plot_map <- renderPlot(plot_map())
