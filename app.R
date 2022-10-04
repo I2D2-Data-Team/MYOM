@@ -17,7 +17,8 @@ color_palette <-
     blu_purple = RColorBrewer::brewer.pal(7, "BuPu"),
     yellow_blu = c(RColorBrewer::brewer.pal(11, "Spectral")[6:11], "darkslateblue"),
     yellow_pur = viridis::magma(18)[seq(17, 5, -2)],
-    viridius = viridis::viridis(13)[seq(13, 1, -2)]
+    viridius = viridis::viridis(13)[seq(13, 1, -2)],
+    i2d2 = c("#252C6A", "#0097CE", "#66c0e1", "#76777A", "#c299cc", "#863399", "#CF202E")
   )
 
 
@@ -106,7 +107,8 @@ main_page <- tabPanel(
                                                                     "Blue to Purple" = "blu_purple",
                                                                     "Yellow to Blue" = "yellow_blu",
                                                                     "Yellow to Purple" = "yellow_pur",
-                                                                    "Viridius Colors" = "viridius"), 
+                                                                    "Viridius Colors" = "viridius",
+                                                                    "I2D2" = "i2d2"), 
                                                         selected = "yellow_grn"), 
                                             checkboxInput("reverse_palette", label = "Reverse Colors", value = FALSE),
                                             conditionalPanel(
