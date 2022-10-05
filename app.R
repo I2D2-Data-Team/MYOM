@@ -132,6 +132,12 @@ main_page <- tabPanel(
                                                                     "Corier" = "mono",
                                                                     "Times New Roman" = "serif"), 
                                                         selected = "serif"),
+                                            
+                                            selectInput("font_color_county", "County Label Font Color",
+                                                        choices = c("Black" = "gray0",
+                                                                    "Grey" = "gray50",
+                                                                    "White" = "gray100"), 
+                                                        selected = "gray0"),
                                             sliderInput("font_title_size", "Change Title Font Size", -5, 5, 0, ticks = FALSE),
                                             sliderInput("font_subtitle_size", "Change Subtitle Font Size", -5, 5, 0, ticks = FALSE),
                                             sliderInput("font_legend_title_size", "Change Legend Title Font Size", -4, 4, 0, ticks = FALSE),
@@ -235,6 +241,7 @@ make_map <- function(data_plot,
                      font_subtitle_size,
                      font_legend_title_size,
                      font_legend_text_size,
+                     font_color_county,
                      ...){
   
   # do not show plot title if it is blank
@@ -282,20 +289,20 @@ make_map <- function(data_plot,
           plot.subtitle = element_text(size = (24 + 2 * font_subtitle_size), hjust = 0.5),
           legend.title = element_text(size = (18 + 2 * font_legend_title_size)),
           legend.text = element_text(size = (18 + 2 * font_legend_text_size)),
-          plot.caption = element_text(size = 8, hjust = 0, lineheight = 0.3)) +
+          plot.caption = element_text(family = "mono", size = 6, hjust = 0, lineheight = 0.3)) +
     guides(fill = guide_legend(byrow = TRUE))
   
   # display labels on the counties
   if (show_county_name && !show_other_name) {
     my_map <- my_map +
-      geom_text(aes(long, lat, label = str_wrap(county_name, 9)),  color = "black", size = 2)
+      geom_text(aes(long, lat, label = str_wrap(county_name, 9)),  color = font_color_county, size = 2)
   } else if (show_county_name && show_other_name) {
     my_map <- my_map +
-      geom_text(aes(long, lat, label = county_name),  color = "black", size = 2, nudge_y = -0.045) +
-      geom_text(aes(long, lat, label = str_wrap(label, 9)),  color = "black", size = 3, nudge_y = 0.045)
+      geom_text(aes(long, lat, label = county_name),  color = font_color_county, size = 2, nudge_y = -0.045) +
+      geom_text(aes(long, lat, label = str_wrap(label, 9)),  color = font_color_county, size = 3, nudge_y = 0.045)
   } else if (!show_county_name && show_other_name) {
     my_map <- my_map +
-      geom_text(aes(long, lat, label = str_wrap(label, 9)),  color = "black", size = 3)
+      geom_text(aes(long, lat, label = str_wrap(label, 9)),  color = font_color_county, size = 3)
   } else if (!show_county_name && !show_other_name) {
     my_map <- my_map
   }
@@ -411,7 +418,8 @@ server <- function(input, output){
              input$font_title_size,
              input$font_subtitle_size,
              input$font_legend_title_size,
-             input$font_legend_text_size
+             input$font_legend_text_size,
+             input$font_color_county
              )
   })
 
