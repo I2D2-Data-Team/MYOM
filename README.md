@@ -1,8 +1,5 @@
 # MYOM
-
-Make your own map
-=======
-MYOM (Make Your Own Map) is a shiny app that allows users to make their own Iowa map using their own county-level data. 
+MYOM (Make Your Own Map) is a web app driven by Shiny that allows users to make their own Iowa map using their own county-level data. 
 
 ### Make Your First Map
 - import data by uploading a `.csv` file
