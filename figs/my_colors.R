@@ -1,25 +1,7 @@
-# library(shiny)
-# library(shinyBS)
-# library(shinythemes)
-# library(shinydashboardPlus)
-# library(data.table)
 library(tidyverse)
-# library(sf)
+library(unikn)
 
-# df <- fread("data/sample_data.csv") %>% tibble()
-# 
-# a <-
-#   df %>% mutate(
-#     across(.cols = c(integer, nominal, `dichotomous number`, `dichotomous character`), 
-#            .fns = as.factor)
-#   )
-# 
-# levels(a$integer)
-# levels(a$`dichotomous number`)
-# levels(a$`dichotomous character`)
-
-
-
+# Set of color palettes
 color_palette <-
   list(
     yellow_grn = c("#fff999", "#f1d581", "#b6c45c", "#7db257", "#4c9c53", "#34834b", "#146c37"),
@@ -32,6 +14,7 @@ color_palette <-
     i2d2 = c("#252C6A", "#0097CE", "#66c0e1", "#76777A", "#c299cc", "#863399", "#CF202E")
   )
 
+# Names of color palettes
 col_names <- 
   tibble("yellow_grn" = "Yellow to Green",
          "yellow_red" = "Yellow to Red",
@@ -42,16 +25,17 @@ col_names <-
          "viridius" = "Viridius Colors",
          "i2d2" = "I2D2")
 
-library(unikn)
+# Plot color palettes
+png("figs/color_palette.png", width = 600, height = 800, res = 96)
 unikn::seecol(color_palette, 
               col_brd = "white", lwd_brd = 8,
               title = "Maping Color Palettes", 
               pal_names = col_names[names(color_palette)],
               grid = FALSE)
+dev.off()
 
 
-
-
+# Other color palettes to consider
 hcl_col_names <- 
   c("Blue-Red", "Blue-Red 2", "Blue-Red 3", "Red-Green", 
     "Purple-Green", "Purple-Brown", "Green-Brown", "Blue-Yellow 2", 
@@ -69,42 +53,4 @@ unikn::seecol(list(hcl.colors(7, "Berlin"),
               main = "Maping Color Palettes",
               pal_names = c("Berlin", "Fall"), 
               grid = FALSE)
-
-
-library(tidyverse)
-library(pals)
-
-
-for (i in 1:length(color_palette)) print(color_palette[[i]])
-pals::pal.bands(c(for (i in 1:length(color_palette)) print(color_palette[[i]])))
-
-
-
-
-
-my_colors <-
-  col_names %>%
-  gather(name, key) %>% 
-  left_join(as.data.frame(color_palette) %>% gather(key, value)) %>%
-  group_by(name, key) %>%
-  nest() 
-
-labs <- my_colors$name
-pals::pal.bands(
-  unlist(my_colors[1,3]),
-  unlist(my_colors[2,3]),
-  unlist(my_colors[3,3]),
-  unlist(my_colors[4,3]),
-  unlist(my_colors[5,3]),
-  unlist(my_colors[6,3]),
-  unlist(my_colors[7,3]),
-  unlist(my_colors[8,3]),
-  labels = labs, border = "black",
-  gap = 0.2,
-  show.names = FALSE
-)
-
-barplot(rep(1, 7), col= color_palette[[1]])
-
-
 
