@@ -31,7 +31,7 @@ col_names <-
 png("figs/color_palette.png", width = 600, height = 800, res = 96)
 unikn::seecol(color_palette, 
               col_brd = "white", lwd_brd = 8,
-              title = "Maping Color Palettes", 
+              title = "Mapping Color Palettes", 
               pal_names = col_names[names(color_palette)],
               grid = FALSE)
 dev.off()
@@ -52,7 +52,7 @@ unikn::seecol(list(hcl.colors(7, "Berlin"),
                    hcl.colors(7, "Vik"),
                    hcl.colors(7, "Fall")), 
               col_brd = "white", lwd_brd = 8,
-              main = "Maping Color Palettes",
+              main = "Mapping Color Palettes",
               pal_names = c("Berlin", "Fall"), 
               grid = FALSE)
 
