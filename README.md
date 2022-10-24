@@ -1,5 +1,5 @@
-# MYOM
-[MYOM](https://i2d2.shinyapps.io/MYOM/) (Make Your Own Map) is a web app driven by Shiny that allows users to make their own Iowa map using their own county-level data. 
+# Make Your Own Map
+[**Make Your Own Map**](https://i2d2.shinyapps.io/MYOM/) (MYOP) is a web app driven by Shiny that allows users to make their own Iowa map using their own county-level data. 
 
 ### Get Started
 Maps can be created in a few simple steps explained below. Additional adjustment can be made to the map later as described in the following sections.
