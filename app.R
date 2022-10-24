@@ -39,10 +39,15 @@ ia_counties <- read_csv("data/IA-county-names-standard.csv")
 
 about_page <- tabPanel(
   title = "About",
-  titlePanel("About"),
-  "Created with R Shiny",
+  fluidRow(
+    column(width = 8, 
+           offset = 2,
+           includeMarkdown("README.md")
+    )
+  ),
   br(),
-  "2021 April"
+  tags$sup("Created with R Shiny, 2022"),
+  br()
 )
 
 
@@ -360,7 +365,24 @@ ui <- navbarPage(
   # theme = shinytheme('sandstone'),
   theme = shinytheme('yeti'),
   main_page,
-  about_page
+  about_page,
+  position = c("fixed-top"),
+  tags$head(
+    tags$style(HTML("
+      body {
+        padding-top: 50px;
+      }
+      h2 {
+        font-weight: bold;
+        margin-top: 50px;
+      }
+      h3 {
+        color: #008CBA;
+        font-weight: bold;
+        margin-top: 40px;
+      }
+                    "))
+  )
 )
 
 
