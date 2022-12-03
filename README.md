@@ -1,5 +1,7 @@
 # Make Your Own Map
-**Make Your Own Map** ([MYOP](https://i2d2.shinyapps.io/MYOM/)) is a web app driven by Shiny that allows users to make their own Iowa map using their own county-level data. 
+**Make Your Own Map** ([MYOP](https://i2d2.shinyapps.io/MYOM/)) is a web app driven by Shiny that allows users to make their own Iowa map using their own county-level data.
+
+<img src="figs/sample_map.png" alt="sample map" style="width:100%;"/>
 
 ## Get Started
 Maps can be created in a few simple steps explained below. Additional adjustment can be made to the map later as described in the following sections.
@@ -51,7 +53,7 @@ This tool allows users to change colors of different elements on the map from av
 - **To Reverse County Colors**, check the **Reverse Colors** checkbox.
 - **To Change Color for Missing Data**, select one of the color options from the **Missing County Color** drop-down list.
 
-![alt text](figs/color_palette.png)
+![color palette](figs/color_palette.png)
 
 > **TIP:** for any dichotomous variable (numeric or string) the first and the last colors of the selected color palette will be used by default. For instance, if I2D2 colors are selected than red and blue colors will be used for dichotomous variables. For continuous numeric variable a two-color gradient will be used based on the first and the last colors of the selected color palette. For nominal variables with more than two levels (or if continuous variable is split into more than two bins) colors will be assigned sequentially. 
 
