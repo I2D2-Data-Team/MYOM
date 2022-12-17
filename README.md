@@ -53,7 +53,7 @@ This tool allows users to change colors of different elements on the map from av
 - **To Reverse County Colors**, check the **Reverse Colors** checkbox.
 - **To Change Color for Missing Data**, select one of the color options from the **Missing County Color** drop-down list.
 
-![color palette](figs/color_palette.png)
+![color palette](figs/color_palettes.png)
 
 > **TIP:** for any dichotomous variable (numeric or string) the first and the last colors of the selected color palette will be used by default. For instance, if I2D2 colors are selected than red and blue colors will be used for dichotomous variables. For continuous numeric variable a two-color gradient will be used based on the first and the last colors of the selected color palette. For nominal variables with more than two levels (or if continuous variable is split into more than two bins) colors will be assigned sequentially. 
 

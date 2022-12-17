@@ -37,6 +37,51 @@ unikn::seecol(color_palette,
 dev.off()
 
 
+
+# Plot Palette Using ggplot2 ----------------------------------------------
+
+color_palette <-
+  list(
+    `Yellow to Blue` = c(RColorBrewer::brewer.pal(11, "Spectral")[6:11], "darkslateblue"),
+    `Yellow to Green` = c("#fff999", "#f1d581", "#b6c45c", "#7db257", "#4c9c53", "#34834b", "#146c37"),
+    `Yellow to Red` = RColorBrewer::brewer.pal(7, "YlOrRd"),
+    `Yellow to Purple` = viridis::magma(20)[c(20, seq(17, 6, -2))],
+    `Red to Purple` = RColorBrewer::brewer.pal(7, "RdPu"),
+    `Blue to Purple` = RColorBrewer::brewer.pal(7, "BuPu"),
+    `Viridius` = viridis::viridis(13)[seq(13, 1, -2)],
+    `I2D2` = c("#252C6A", "#0097CE", "#66c0e1", "#76777A", "#c299cc", "#863399", "#CF202E")
+  )
+
+data <- 
+  tibble(Value = 1,
+         Order = rep(1:7, 8),
+         Palette = rep(names(color_palette), each = 7),
+         Color = flatten_chr(color_palette))
+
+data %>%
+  mutate(Palette = 
+           factor(Palette,
+                  levels = c(
+                    "I2D2",
+                    "Blue to Purple",
+                    "Red to Purple",
+                    "Viridius",
+                    "Yellow to Blue",
+                    "Yellow to Green",
+                    "Yellow to Purple",
+                    "Yellow to Red"
+                    ))) %>%
+  ggplot(aes(x = Order, y = Value)) +
+  geom_col(aes(fill = I(Color))) +
+  facet_grid(fct_rev(Palette) ~ .) +
+  theme_void() +
+  theme(strip.placement = 'inside',
+        text = element_text(size = 18, hjust = 0))
+
+ggsave("figs/color_palettes.png", width = 6, height = 5)
+
+
+
 # Other color palettes to consider
 hcl_col_names <- 
   c("Blue-Red", "Blue-Red 2", "Blue-Red 3", "Red-Green", 
