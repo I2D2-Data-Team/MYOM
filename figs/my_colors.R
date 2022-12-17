@@ -78,7 +78,7 @@ data %>%
   theme(strip.placement = 'inside',
         text = element_text(size = 18, hjust = 0))
 
-ggsave("figs/color_palettes.png", width = 6, height = 5)
+ggsave("figs/color_palettes.png", width = 6, height = 5, dpi = 80)
 
 
 
