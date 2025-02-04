@@ -51,6 +51,22 @@ about_page <- tabPanel(
 )
 
 
+# UI - SAMPLE DATA -------------------------------------------------
+
+sample_data_page <- tabPanel(
+  title = "Sample Data",
+  fluidRow(
+    column(width = 8, 
+           offset = 2,
+           includeMarkdown("SAMPLE_DATA.md")
+    )
+  ),
+  br(),
+  tags$sup("Created with R Shiny, 2022"),
+  br()
+)
+
+
 # UI - MAIN --------------------------------------------------------
 
 main_page <- tabPanel(
@@ -366,6 +382,7 @@ ui <- navbarPage(
   theme = shinytheme('yeti'),
   main_page,
   about_page,
+  sample_data_page,
   position = c("fixed-top"),
   tags$head(
     tags$style(HTML("
