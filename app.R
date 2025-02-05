@@ -1,3 +1,4 @@
+library(markdown)
 library(shiny)
 library(shinyBS)
 library(shinythemes)
