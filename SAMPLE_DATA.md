@@ -1,13 +1,14 @@
-# Try Sample Data
+# Sample Data
 
-A template file with dummy data is available for users to download from <a href="https://github.com/I2D2-Data-Team/MYOM/blob/main/data/sample_data.csv" target="_blank">here</a>.
+An <a href="https://github.com/I2D2-Data-Team/MYOM/blob/main/data/sample_data.csv" target="_blank">example input file</a> with dummy data is available for download as a CSV file on our <a href="https://github.com/I2D2-Data-Team/MYOM" target="_blank">GitHub repository</a>. The file is comprised of 10 columns including county name (`county`) and country FIPS code (`fips`) together with variables of different data types (string, integer, double, dichotomous character/numeric).
+
+## To Use Sample Data
 
 -   Download the file by clicking on **Download raw file** button (shown in orange square in the figure below)
 
 <img src="figs/download_button.png" alt="sample map" style="width:100%;"/>
 
-<br>
-<br>
+<br> <br>
 
 -   Save file in local machine
 
